@@ -80,11 +80,13 @@ def aes_encrypt(key, mode, plain):
         # CBC requires padding, default block size = 16
         aes = AES.new(key, mode, iv)
         npad = 16 - (len(plain) % 16)
-        plain_padded = plain+"X"*npad
+        pad = chr(npad)*npad
+        plain_padded = plain + pad
         _plain = plain_padded
 
-    print ' plain:', _plain
-    return aes.encrypt(_plain)
+    print ' plain: |', _plain, '|'
+    cipher = aes.encrypt(_plain)
+    return cipher
 
 
 def hex2ascii(buffer):
